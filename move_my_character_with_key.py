@@ -17,12 +17,28 @@ def handle_events():
         if event.type == SDL_KEYDOWN:
             if event.key == SDLK_RIGHT:
                 dx += 1
+                if event.key == SDLK_UP:
+                    dy += 1
+                elif event.key == SDLK_DOWN:
+                    dy -= 1
             elif event.key == SDLK_LEFT:
                 dx -= 1
+                if event.key == SDLK_UP:
+                    dy += 1
+                elif event.key == SDLK_DOWN:
+                    dy -= 1
             elif event.key == SDLK_UP:
                 dy += 1
+                if event.key == SDLK_RIGHT:
+                    dx += 1
+                elif event.key == SDLK_LEFT:
+                    dx -= 1
             elif event.key == SDLK_DOWN:
                 dy -= 1
+                if event.key == SDLK_RIGHT:
+                    dx += 1
+                elif event.key == SDLK_LEFT:
+                    dx -= 1
             elif event.key == SDLK_ESCAPE:
                 running = False
           
@@ -59,6 +75,18 @@ while running:
         frameCut = 3
     elif dx == 0 and dy < 0:  # 하
         down.clip_draw(frame * 28, 0, 28, 30, x, y, 60, 90)
+        frameCut = 3
+    elif dx < 0 and dy > 0:  # 좌상
+        diagonal_up.clip_draw(frame * 27, 0, 27, 32, x, y, 60, 90)
+        frameCut = 3
+    elif dx < 0 and dy < 0:  # 좌하
+        diagonal_down.clip_draw(frame * 28, 0, 28, 32, x, y, 60, 90)
+        frameCut = 3
+    elif dx > 0 and dy > 0:  # 우상
+        diagonal_up.clip_composite_draw(frame * 27, 0, 27, 32, 0, 'h', x, y, 60, 90)
+        frameCut = 3
+    elif dx > 0 and dy < 0:  # 우하
+        diagonal_down.clip_composite_draw(frame * 28, 0, 28, 32, 0, 'h', x, y, 60, 90)
         frameCut = 3
     update_canvas()
     handle_events()
