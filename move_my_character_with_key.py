@@ -44,13 +44,13 @@ def handle_events():
           
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_RIGHT:
-                dx = 0
+                dx -= 1
             elif event.key == SDLK_LEFT:
-                dx = 0
+                dx += 1
             elif event.key == SDLK_UP:
-                dy = 0
+                dy -= 1
             elif event.key == SDLK_DOWN:
-                dy = 0
+                dy += 1
         
 
 running = True
@@ -93,6 +93,10 @@ while running:
     frame = (frame + 1) % frameCut
     x += dx * 5
     y += dy * 5
+    if x >= 800 or x <= 0:
+        break
+    if y >= 600 or y <= 0:
+        break
     delay(0.05)
     get_events()
 
