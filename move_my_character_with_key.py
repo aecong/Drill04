@@ -1,6 +1,6 @@
 from pico2d import *
 
-TUK_WIDTH, TUK_HEIGHT = 800, 600
+TUK_WIDTH, TUK_HEIGHT = 1280, 670
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
 state = load_image('sleeping.png')
@@ -14,8 +14,6 @@ dash_up = load_image('dash_up.png')
 dash_left = load_image('dash_left.png')
 dash_diagonal_up = load_image('dash_left_up.png')
 dash_diagonal_down = load_image('dash_left_down.png')
-spin = load_image('spin.png')
-
 
 def handle_events():
     global running, dx, dy, speed
@@ -122,9 +120,9 @@ while running:
     frame = (frame + 1) % frameCut
     x += dx * speed
     y += dy * speed
-    if x >= 800 or x <= 0:
+    if x >= TUK_WIDTH - 5 or x <= 0:
         dx, dy = 0, 0
-    if y >= 600 or y <= 0:
+    if y >= TUK_HEIGHT - 5 or y <= 0:
         dx, dy = 0, 0
     delay(0.05)
     get_events()
