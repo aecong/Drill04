@@ -37,17 +37,34 @@ def handle_events():
                 dy = 0
         
 
-
-pro = True
-
+running = True
+dx, dy = 0, 0
+x, y = 800//2, 150
+frame = 0
+frameCut = 2
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH//2, TUK_HEIGHT//2)
-    
-   
+    if dx == 0 and dy == 0:  # 가만히
+        state.clip_draw(frame * 35, 0, 35, 20, x, y, 100, 50)
+        frameCut = 2
+    elif dx < 0 and dy == 0:  # 좌
+        left.clip_draw(frame * 23, 0, 23, 33, x, y, 50, 90)
+        frameCut = 3
+    elif dx > 0 and dy == 0:  # 우
+        left.clip_composite_draw(frame * 23, 0, 23, 33, 0, 'h', x, y, 50, 90)
+        frameCut = 3
+    elif dx == 0 and dy > 0:  # 상
+        up.clip_draw(frame*28, 0, 28, 30, x, y, 60, 90)
+        frameCut = 3
+    elif dx == 0 and dy < 0:  # 하
+        down.clip_draw(frame * 28, 0, 28, 30, x, y, 60, 90)
+        frameCut = 3
     update_canvas()
     handle_events()
- 
+    frame = (frame + 1) % frameCut
+    x += dx * 5
+    y += dy * 5
     delay(0.05)
     get_events()
 
